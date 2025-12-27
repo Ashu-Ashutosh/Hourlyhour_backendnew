@@ -1,0 +1,31 @@
+// services/service.service.js
+import api from "./api";
+
+export const ServiceService = {
+  // CREATE SERVICE
+  addService: async (data) => {
+    return await api.post("/service/add-service", data);
+  },
+  getAll: (params) => api.get("/service/all-services", { params }),
+
+  // GET SERVICES BY CATEGORY WITH PAGINATION
+  getServicesByCategory: async (categoryId, page = 1, limit = 10) => {
+    return await api.get(`/service/category/${categoryId}/services`, {
+      params: { page, limit },
+    });
+  },
+  getAllServices: async (params = {}) => {
+    return await api.get("/service/all-services", { params });
+  }, // DELETE SERVICE
+  deleteService: async (id) => {
+    return await api.delete(`/service/delete-service/${id}`);
+  },
+
+  // UPDATE SERVICE
+  updateService: async (id, data) => {
+    return await api.put(`/service/edit-service/${id}`, data);
+  },
+  popularServices: async (data) => {
+    return await api.get("/service/popular-services", data);
+  },
+};

@@ -1,0 +1,23 @@
+const express = require("express");
+const router = express.Router();
+
+const booking = require("../controllers/booking.controller");
+const { authenticated } = require("../middlewares/auth.middleware");
+const { upload } = require("../helpers/multer");
+
+router.get("/accept-booking", authenticated, booking.acceptBooking);
+router.get("/user-mybooking", authenticated, booking.getUserBookings);
+// router.get("/provider-mybooking", authenticated, booking.getProviderBookings);
+router.get("/pending-booking", authenticated, booking.allPendingBookings);
+/* ───── PROVIDER ROUTES ───── */
+
+// Provider: start service
+router.post("/start", authenticated, booking.startService);
+
+// Provider: complete service
+router.post("/complete", authenticated, booking.completeService);
+
+// Provider: my assigned bookings
+router.get("/assigned", authenticated, booking.getProviderBookings);
+
+module.exports = router;
